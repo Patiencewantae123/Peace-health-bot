@@ -1,6 +1,4 @@
-```dart
 import 'package:flutter/material.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 void main() {
   runApp(HealthApp());
@@ -48,8 +46,6 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-//////////////////// HOME SCREEN ////////////////////
-
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -59,14 +55,11 @@ class HomeScreen extends StatelessWidget {
         child: Text(
           "Welcome 👋\n\nUse the chatbot to ask basic health questions.",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18),
         ),
       ),
     );
   }
 }
-
-//////////////////// CHAT SCREEN ////////////////////
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -77,58 +70,21 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   List<String> messages = [];
 
-  late stt.SpeechToText _speech;
-  bool _isListening = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _speech = stt.SpeechToText();
-  }
-
-  void _listen() async {
-    if (!_isListening) {
-      bool available = await _speech.initialize();
-      if (available) {
-        setState(() => _isListening = true);
-
-        _speech.listen(onResult: (val) {
-          setState(() {
-            _controller.text = val.recognizedWords;
-          });
-        });
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
-    }
-  }
-
   void sendMessage() {
     String userMsg = _controller.text.trim();
     if (userMsg.isEmpty) return;
 
     setState(() {
       messages.add("You: $userMsg");
-      messages.add("Bot: ${getResponse(userMsg)}");
+      messages.add("Bot: Hello! I received your message.");
       _controller.clear();
     });
   }
 
-  String getResponse(String input) {
-    input = input.toLowerCase();
-
-    if (input.contains("fever")) {
-      return "You may have an infection. Drink fluids and rest.";
-    } else if (input.contains("headache")) {
-      return "Try resting, drinking water, and avoiding stress.";
-    } else if (input.contains("stomach")) {
-      return "Eat light food and avoid spicy meals.";
-    } else if (input.contains("hello") || input.contains("hi")) {
-      return "Hi 👋 How can I help with your health today?";
-    } else {
-      return "I'm a simple health bot. Please consult a doctor for serious issues.";
-    }
+  void fakeMic() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("🎤 Voice coming soon")),
+    );
   }
 
   @override
@@ -147,8 +103,8 @@ class _ChatScreenState extends State<ChatScreen> {
           Row(
             children: [
               IconButton(
-                icon: Icon(_isListening ? Icons.mic : Icons.mic_none),
-                onPressed: _listen,
+                icon: Icon(Icons.mic),
+                onPressed: fakeMic,
               ),
               Expanded(
                 child: TextField(
@@ -171,15 +127,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-//////////////////// TIPS SCREEN ////////////////////
-
 class TipsScreen extends StatelessWidget {
   final List<String> tips = [
-    "Drink at least 2 liters of water daily 💧",
-    "Exercise 3-5 times a week 🏃",
-    "Sleep 7-8 hours every night 😴",
-    "Eat a balanced diet 🥗",
-    "Reduce stress and relax 🧘",
+    "Drink water 💧",
+    "Exercise 🏃",
+    "Sleep 😴",
+    "Eat healthy 🥗",
   ];
 
   @override
@@ -188,13 +141,9 @@ class TipsScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Health Tips")),
       body: ListView(
         children: tips
-            .map((tip) => ListTile(
-                  leading: Icon(Icons.check_circle),
-                  title: Text(tip),
-                ))
+            .map((tip) => ListTile(title: Text(tip)))
             .toList(),
       ),
     );
   }
 }
-```
