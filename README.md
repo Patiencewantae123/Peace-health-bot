@@ -165,7 +165,7 @@ This app provides **basic health suggestions only**
 
 ## 👨‍💻 Author
 
-**Leo**
+**Pato @@@@@@@@@@2026 Chosun**
 Flutter Developer | Researcher | AI Enthusiast
 
 ---
