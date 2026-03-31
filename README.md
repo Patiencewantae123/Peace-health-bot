@@ -4,7 +4,6 @@ Amani Health AI is a **bilingual (English 🇬🇧 / Korean 🇰🇷) AI-powered
 It provides **basic health guidance, voice interaction, and localized support for South Korea users**.
 
 ---
-![Uploading Screenshot 2026-03-25 120624.png…]()
 
 
 
@@ -59,7 +58,8 @@ It provides **basic health guidance, voice interaction, and localized support fo
 > Add screenshots here after running the app
 > (Home | Chat | News)
 
----
+---![Uploading Screenshot 2026-03-25 120624.png…]()
+
 
 ## 🛠️ Tech Stack
 
